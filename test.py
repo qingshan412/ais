@@ -21,10 +21,11 @@ prior = NormalPrior()
 kernel = ParsenDensityEstimator()
 model = ais.Model(generator, prior, kernel, 0.25, 10000)
 
+# Get 100 f(x) values
 p = norm()
 x = np.linspace(norm.ppf(0.01, loc=3, scale=2), norm.ppf(0.99, loc=3, scale=2), 100)
 p1 = norm.pdf(x, loc=3, scale=2)
-xx = np.reshape(x, [100, 1])
+xx = np.reshape(x, (100, 1))
 
 schedule = ais.get_schedule(100, rad=4)
 print(schedule)
