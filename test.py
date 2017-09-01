@@ -30,8 +30,8 @@ xx = np.reshape(x, (100, 1))
 schedule = ais.get_schedule(100, rad=4)
 print(schedule)
 p2 = np.exp(model.ais(xx, schedule))
+print(p2)
 
-
-plt.plot(x, p1)
-plt.plot(x, p2)
-plt.show()
+#plt.plot(x, p1)
+#plt.plot(x, p2)
+#plt.show()

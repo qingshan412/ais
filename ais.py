@@ -98,6 +98,9 @@ class Model(object):
             print(self.sess.run(self.kernel.logpdf(self.x, tf.reshape(self.generator(self.z), [self.num_samples, self.batch_size, self.generator.output_dim]), self.sigma),
                                 feed_dict={self.x: x, self.z: self.zv}))
             accept = self.step(x, t1)
+            print('accept:')
             print(np.mean(accept))
         lld = np.squeeze(log_mean_exp(w, axis=0), axis=0)
+        print('lld:')
+        print(lld)
         return lld
