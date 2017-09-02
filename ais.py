@@ -95,8 +95,7 @@ class Model(object):
             new_u = self.log_likelihood(x, t1)
             prev_u = self.log_likelihood(x, t0)
             w += new_u - prev_u
-            print(self.sess.run(self.kernel.logpdf(self.x, tf.reshape(self.generator(self.z), [self.num_samples, self.batch_size, self.generator.output_dim]), self.sigma),
-                                feed_dict={self.x: x, self.z: self.zv}))
+            print(self.sess.run(self.kernel.logpdf(self.x, tf.reshape(self.generator(self.z), [self.num_samples, self.batch_size, self.generator.output_dim]), self.sigma), feed_dict={self.x: x, self.z: self.zv}))
             accept = self.step(x, t1)
             print('accept:')
             print(np.mean(accept))
