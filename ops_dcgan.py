@@ -100,7 +100,8 @@ def linear(input_, output_size, scope=None, stddev=0.02, bias_start=0.0, with_w=
   #exit(0)
 
   with tf.variable_scope(scope or "Linear"):
-    matrix = tf.get_variable("Matrix", [shape[1], output_size], tf.float32), tf.random_normal_initializer(stddev=stddev))
+    matrix = tf.get_variable("Matrix", [shape[1], output_size], tf.float32, 
+        tf.random_normal_initializer(stddev=stddev))
     bias = tf.get_variable("bias", [output_size],
       initializer=tf.constant_initializer(bias_start))
     if with_w:
