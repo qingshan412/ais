@@ -7,8 +7,8 @@ from kernels import ParsenDensityEstimator
 from scipy.stats import norm
 
 #import re
-from ops_dcgan import *
-#from utils import *
+#from ops_dcgan import *
+from ops import *
 import math
 
 import argparse
