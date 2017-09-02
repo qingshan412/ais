@@ -132,7 +132,7 @@ class Generator(object):
             exit(0)#return False
 
     def __call__(self, z):
-        return(self.sess.run(tf.nn.tanh(h6)), feed_dict={self.z: self.zv})
+        return(self.sess.run(tf.nn.tanh(h6), feed_dict={self.z: self.zv}))
         #return tf.nn.tanh(h6)
 
 
