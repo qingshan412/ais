@@ -89,8 +89,8 @@ class Generator(object):
             s_h4, s_w4 = conv_out_size_same(s_h2, 2), conv_out_size_same(s_w2, 2)
             s_h8, s_w8 = conv_out_size_same(s_h4, 2), conv_out_size_same(s_w4, 2)
 
-            # project `z` and reshape
-            self.z_, self.h0_w, self.h0_b = linear(z, self.gf_dim*4*s_h8*s_w8, 'g_h0_lin', with_w=True)
+            # project `z` and reshape #J.L.
+            self.z_, self.h0_w, self.h0_b = linear(self.z, self.gf_dim*4*s_h8*s_w8, 'g_h0_lin', with_w=True)
             self.h0 = tf.nn.relu(self.g_bn0(self.z_))
 
             h0 = tf.reshape(self.h0, [-1, s_h8, s_w8, self.gf_dim * 4])
