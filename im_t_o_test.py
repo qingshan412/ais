@@ -117,7 +117,7 @@ class Generator(object):
 
         #def load(self):
         #v1 = tf.get_variable("v") 
-        #print(tf.get_variable("g_bn0/moving_mean:0").name)
+        print(tf.get_variable("g_bn0/moving_mean:0", [8192]).name)
         print(" [*] Reading checkpoints...")
         #checkpoint_dir = os.path.join(self.checkpoint_dir, self.model_dir)
         ckpt = tf.train.get_checkpoint_state(self.checkpoint_dir)
