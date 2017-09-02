@@ -80,20 +80,7 @@ class Generator(object):
 
         self.dataset_name = dataset_name
         self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')
-        self.saver = tf.train.Saver()
-
-        #def load(self):
-        print(" [*] Reading checkpoints...")
-        #checkpoint_dir = os.path.join(self.checkpoint_dir, self.model_dir)
-        ckpt = tf.train.get_checkpoint_state(self.checkpoint_dir)
-        if ckpt and ckpt.model_checkpoint_path:
-            ckpt_name = os.path.basename(ckpt.model_checkpoint_path)
-            self.saver.restore(self.sess, os.path.join(self.checkpoint_dir, ckpt_name))
-            print(" [*] Success to read {}".format(ckpt_name))
-            #return True
-        else:
-            print(" [*] Failed to find a checkpoint")
-            exit(0)#return False
+        
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         with tf.variable_scope("generator") as scope:
             scope.reuse_variables()
@@ -124,6 +111,21 @@ class Generator(object):
             h5 = tf.nn.relu(self.g_bn5(h5))
 
             h6, self.h6_w, self.h6_b = deconv2d_d1(h5, [self.batch_size, s_h, s_w, self.c_dim], name='g_h6', with_w=True)
+
+        self.saver = tf.train.Saver()
+
+        #def load(self):
+        print(" [*] Reading checkpoints...")
+        #checkpoint_dir = os.path.join(self.checkpoint_dir, self.model_dir)
+        ckpt = tf.train.get_checkpoint_state(self.checkpoint_dir)
+        if ckpt and ckpt.model_checkpoint_path:
+            ckpt_name = os.path.basename(ckpt.model_checkpoint_path)
+            self.saver.restore(self.sess, os.path.join(self.checkpoint_dir, ckpt_name))
+            print(" [*] Success to read {}".format(ckpt_name))
+            #return True
+        else:
+            print(" [*] Failed to find a checkpoint")
+            exit(0)#return False
 
     def __call__(self, z):
             return tf.nn.tanh(h6)
