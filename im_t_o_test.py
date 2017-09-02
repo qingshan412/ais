@@ -116,6 +116,8 @@ class Generator(object):
         self.saver = tf.train.Saver()
 
         #def load(self):
+        #v1 = tf.get_variable("v") 
+        print(tf.get_variable("generator/g_bn0/moving_mean").name)
         print(" [*] Reading checkpoints...")
         #checkpoint_dir = os.path.join(self.checkpoint_dir, self.model_dir)
         ckpt = tf.train.get_checkpoint_state(self.checkpoint_dir)
@@ -130,7 +132,8 @@ class Generator(object):
             exit(0)#return False
 
     def __call__(self, z):
-            return tf.nn.tanh(h6)
+        return(self.sess.run(tf.nn.tanh(h6)), feed_dict={self.z: self.zv})
+        #return tf.nn.tanh(h6)
 
 
 generator = Generator(checkpoint_dir=checkpoint_dir, dataset_name='default')
