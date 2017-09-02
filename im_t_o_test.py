@@ -82,9 +82,9 @@ class Generator(object):
         self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')
         
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
-        with tf.variable_scope(tf.get_variable_scope()) as scope:
-        #with tf.variable_scope("generator") as scope:
-            scope.reuse_variables()
+        #with tf.variable_scope(tf.get_variable_scope()) as scope:
+        with tf.variable_scope("generator") as scope:
+            #scope.reuse_variables()
             s_h, s_w = self.output_height, self.output_width
             s_h2, s_w2 = conv_out_size_same(s_h, 2), conv_out_size_same(s_w, 2)
             s_h4, s_w4 = conv_out_size_same(s_h2, 2), conv_out_size_same(s_w2, 2)
