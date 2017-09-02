@@ -79,7 +79,7 @@ class Generator(object):
         self.g_bn5 = batch_norm(name='g_bn5')
 
         self.dataset_name = dataset_name
-        self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')
+        self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')#J.L.
         
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         #with tf.variable_scope(tf.get_variable_scope()) as scope:
@@ -117,7 +117,9 @@ class Generator(object):
 
         #def load(self):
         #v1 = tf.get_variable("v") 
-        print(tf.get_variable("g_bn0/moving_mean:0", [8192]).name)
+        tf.global_variables_initializer()#.run()
+#        print(tf.get_variable("generator/g_bn0/beta", [8192]).name)
+        #generator/g_bn0/beta"
         print(" [*] Reading checkpoints...")
         #checkpoint_dir = os.path.join(self.checkpoint_dir, self.model_dir)
         ckpt = tf.train.get_checkpoint_state(self.checkpoint_dir)
