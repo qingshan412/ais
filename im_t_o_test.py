@@ -86,9 +86,13 @@ class Generator(object):
         with tf.variable_scope("generator") as scope:
             #scope.reuse_variables()
             s_h, s_w = self.output_height, self.output_width
+            print(s_h)
             s_h2, s_w2 = conv_out_size_same(s_h, 2), conv_out_size_same(s_w, 2)
+            print(s_h2)
             s_h4, s_w4 = conv_out_size_same(s_h2, 2), conv_out_size_same(s_w2, 2)
+            print(s_h4)
             s_h8, s_w8 = conv_out_size_same(s_h4, 2), conv_out_size_same(s_w4, 2)
+            print(s_h8)
 
             # project `z` and reshape #J.L.
             self.z_, self.h0_w, self.h0_b = linear(self.z, self.gf_dim*4*s_h8*s_w8, 'g_h0_lin', with_w=True)
