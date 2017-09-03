@@ -169,11 +169,11 @@ class Generator(object):
         #tf.global_variables_initializer().run()
         #init_op = tf.global_variables_initializer()
         #self.sess.run(init_op)
-        print('z:')
-        print(z.get_shape().as_list())
+        #print('z:')
+        #print(z.get_shape().as_list())
         #tmp_z_f = tf.Session().run(z)
-        tmp_z_f = tf.InteractiveSession().run(z)
-        return self.sess.run(self.genImage, feed_dict={self.z: tmp_z_f})
+        #tmp_z_f = tf.InteractiveSession().run(z)
+        return self.sess.run(self.genImage, feed_dict={self.z: z})
         #return tf.nn.tanh(h6)
 
 #with tf.Session() as sess:

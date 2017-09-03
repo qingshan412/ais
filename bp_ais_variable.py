@@ -43,10 +43,10 @@ class Model(object):
         #self.z = tf.placeholder(tf.float32, [None, self.generator.input_dim], name='z')
         self.batch_size = batch_size #tf.shape(self.x)[0]
         self.num_samples = num_samples
-        self.zv = np.random.normal(0.0, 1.0, [x.shape[0] * self.num_samples, self.generator.input_dim])
-            #[self.batch_size*self.num_samples, self.generator.input_dim], 
-            #tf.float32, 
-            #tf.random_normal_initializer(0.0, 1.0))
+        self.zv = tf.get_variable('zv', 
+            [self.batch_size*self.num_samples, self.generator.input_dim], 
+            tf.float32, 
+            tf.random_normal_initializer(0.0, 1.0))
         #init_op = tf.global_variables_initializer()
         #self.sess.run(init_op)
         self.sigma = sigma
