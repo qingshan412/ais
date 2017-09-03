@@ -47,8 +47,8 @@ class Model(object):
             [self.batch_size*self.num_samples, self.generator.input_dim], 
             tf.float32, 
             tf.random_normal_initializer(0.0, 1.0))
-        init_op = tf.global_variables_initializer()
-        self.sess.run(init_op)
+        #init_op = tf.global_variables_initializer()
+        #self.sess.run(init_op)
         self.sigma = sigma
         self.t = tf.placeholder(tf.float32, [], name='t')
         self.lld = tf.reshape(-self.energy_fn(self.zv), [num_samples, self.batch_size])
@@ -96,7 +96,7 @@ class Model(object):
     def ais(self, x, schedule):
         w = 0.0
         #self.zv = np.random.normal(0.0, 1.0, [x.shape[0] * self.num_samples, self.generator.input_dim])
-        tf.global_variables_initializer().run()
+        
         for (t0, t1) in zip(schedule[:-1], schedule[1:]):
             new_u = self.log_likelihood(x, t1)
             prev_u = self.log_likelihood(x, t0)
