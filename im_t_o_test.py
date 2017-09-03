@@ -101,7 +101,7 @@ class Generator(object):
             print(s_h8)
 
             # project `z` and reshape #J.L.
-            self.z_, self.h0_w, self.h0_b = linear(z, self.gf_dim*4*s_h8*s_w8, 'g_h0_lin', with_w=True)
+            self.z_, self.h0_w, self.h0_b = linear(self.z, self.gf_dim*4*s_h8*s_w8, 'g_h0_lin', with_w=True)
             self.h0 = tf.nn.relu(self.g_bn0(self.z_))
             print('h:')
 
