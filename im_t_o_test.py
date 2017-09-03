@@ -163,6 +163,7 @@ class Generator(object):
         #kz = self.sess.run(z)
         #self.z = z
         tmp_z = z.value()
+        tmp_z = tf.make_ndarray(tmp_z)
         return self.sess.run(self.genImage, feed_dict={self.z: tmp_z})
         #return tf.nn.tanh(h6)
 
