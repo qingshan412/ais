@@ -172,8 +172,7 @@ class Generator(object):
         print('z:')
         print(z.get_shape().as_list())
         #tmp_z_f = tf.Session().run(z)
-        with tf.InteractiveSession() as sess:
-            tmp_z_f = z.eval(sess)
+        tmp_z_f = tf.InteractiveSession().run(z)
         return self.sess.run(self.genImage, feed_dict={self.z: tmp_z_f})
         #return tf.nn.tanh(h6)
 
