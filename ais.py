@@ -46,7 +46,7 @@ class Model(object):
         self.num_samples = num_samples
         self.sigma = sigma
         self.t = tf.placeholder(tf.float32, [], name='t')
-        self.lld = tf.reshape(-self.energy_fn(self.z), [num_samples, self.batch_size])
+        self.lld = tf.reshape(-self.energy_fn(self.zv), [num_samples, self.batch_size])
 
         self.stepsize = tf.Variable(stepsize)
         self.avg_acceptance_rate = tf.Variable(target_acceptance_rate)
