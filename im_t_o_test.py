@@ -13,15 +13,15 @@ import math
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("-b","--BatchNum", type=int,
-                    help="Number of Batches",
-                    default = '100')
+parser.add_argument("-b","--SampleNum", type=int,
+                    help="Number of Samples",
+                    default = '64')
 parser.add_argument("-c","--CheckP", type=str,
                     help="Checkpoint Dir",
                     default = None)
 args = parser.parse_args()
 
-NumBatch = args.BatchNum
+NumSample = args.SampleNum
 checkpoint_dir = args.CheckP
 
 #class Generator(object):
@@ -84,12 +84,12 @@ class Generator(object):
         self.g_bn5 = batch_norm(name='g_bn5')
 
         self.dataset_name = dataset_name
-        self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')#J.L.
-        #self.z = tf.get_variable('z', [self.batch_size, self.z_dim], tf.float32)
+        #self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')#J.L.
+        self.z = tf.get_variable('z', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         #with tf.variable_scope(tf.get_variable_scope()) as scope:
         with tf.variable_scope("generator") as scope:
-            #scope.reuse_variables()
+            scope.reuse_variables()
             s_h, s_w = self.output_height, self.output_width
             print(s_h)
             s_h2, s_w2 = conv_out_size_same(s_h, 2), conv_out_size_same(s_w, 2)
@@ -154,14 +154,14 @@ class Generator(object):
 
     def __call__(self, z):
         #tmp_z = self.sess.run(z, feed_dict={self.z:np.ones((1, self.z_dim))})
-        tmp_z = np.array(z)
+        self.z.assign(z)
 	    #    sess.close()
         #sess.run(self.assign(z))
-        return self.sess.run(self.genImage, feed_dict={self.z:tmp_z})
+        return self.sess.run(self.genImage)
         #return tf.nn.tanh(h6)
 
-with tf.Session() as sess:
-    generator = Generator(checkpoint_dir=checkpoint_dir, dataset_name='default')
+#with tf.Session() as sess:
+generator = Generator(sample_num=NumSample, checkpoint_dir=checkpoint_dir)
 print('load success!')
 prior = NormalPrior()
 kernel = ParsenDensityEstimator()

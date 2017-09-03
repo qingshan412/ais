@@ -4,7 +4,7 @@ import tensorflow as tf
 
 from tensorflow.python.framework import ops
 
-from utils import *
+from utils_6 import *
 
 try:
   image_summary = tf.image_summary
