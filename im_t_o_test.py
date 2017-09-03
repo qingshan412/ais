@@ -41,7 +41,7 @@ def conv_out_size_same(size, stride):
   return int(math.ceil(float(size) / float(stride)))
 
 class Generator(object):
-    def __init__(self, #input_height=32, input_width=32, 
+    def __init__(self, sess#input_height=32, input_width=32, 
          crop=True,
          batch_size=64, sample_num = 64, output_height=32, output_width=32,
          y_dim=None, z_dim=100, gf_dim=128, df_dim=128,
@@ -51,8 +51,8 @@ class Generator(object):
         self.input_dim = z_dim
         #print(self.output_dim)
         #exit(0)
-        #self.sess = sess
-        self.sess = tf.Session() 
+        self.sess = sess
+        #self.sess = tf.Session() 
         #self.input_height = input_height
         #self.input_width = input_width
         self.output_height = output_height
