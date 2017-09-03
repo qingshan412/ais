@@ -84,8 +84,8 @@ class Generator(object):
         self.g_bn5 = batch_norm(name='g_bn5')
 
         self.dataset_name = dataset_name
-        self.z = tf.placeholder(tf.float32, [1, self.z_dim], name='z')#J.L.
-        #self.z = tf.get_variable('z', [None, self.z_dim], tf.float32)
+        self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')#J.L.
+        #self.z = tf.get_variable('z', [self.batch_size, self.z_dim], tf.float32)
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         #with tf.variable_scope(tf.get_variable_scope()) as scope:
         with tf.variable_scope("generator") as scope:
