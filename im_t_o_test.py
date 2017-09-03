@@ -48,6 +48,8 @@ class Generator(object):
          gfc_dim=1024, dfc_dim=1024, c_dim=3,checkpoint_dir=None, dataset_name='default'):
         
         self.output_dim = int(output_height)*int(output_width),
+        print(self.output_dim)
+        exit(0)
         #self.sess = sess
         self.sess = tf.Session() 
         #self.input_height = input_height
