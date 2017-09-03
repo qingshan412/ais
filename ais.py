@@ -83,7 +83,7 @@ class Model(object):
         return self.sess.run(self.lld, feed_dict={self.t: t, self.x: x, self.z: self.zv})
 
     def energy_fn(self, z):
-        with self.sess.as_default():
+        with self.sess as sess:
             z_value = z.eval()
         mu = self.generator(z_value)
         mu = tf.reshape(mu, [self.num_samples, self.batch_size, self.generator.output_dim])
