@@ -163,9 +163,10 @@ class Generator(object):
         #kz = self.sess.run(z)
         #self.z = z
         #tmp_z = z.value()
-        tmp_z = tf.make_tensor_proto(z)
-        tmp_z = tf.make_ndarray(tmp_z)
-        return self.sess.run(self.genImage, feed_dict={self.z: tmp_z})
+        tmp_z = tf.convert_to_tensor(z)
+        tmp_z_pt = tf.make_tensor_proto(tmp_z)
+        tmp_z_f = tf.make_ndarray(tmp_z_pt)
+        return self.sess.run(self.genImage, feed_dict={self.z: tmp_z_f})
         #return tf.nn.tanh(h6)
 
 #with tf.Session() as sess:
