@@ -155,7 +155,7 @@ class Generator(object):
 
     def __call__(self, z):
         #tmp_z = self.sess.run(z, feed_dict={self.z:np.ones((1, self.z_dim))})
-        self.z = tf.get_variable('kz', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
+        self.z = tf.get_variable('z', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
         self.z.assign(z)
 	    #    sess.close()
         #sess.run(self.assign(z))
