@@ -154,7 +154,7 @@ class Generator(object):
 
     def __call__(self, z):
 	    #with tf.Session() as sess:
-	    #    tmp_z = tf.Session().run(z)
+	    tmp_z = self.sess.run(z, feed_dict={self.z:tf.ones([1, self.z_dim])})
 	    #    sess.close()
         #sess.run(self.assign(z))
         return self.sess.run(self.genImage, feed_dict={self.z:z})
