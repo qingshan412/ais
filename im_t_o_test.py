@@ -153,9 +153,9 @@ class Generator(object):
         self.genImage = tf.nn.tanh(h6)
 
     def __call__(self, z):
-	    with tf.Session() as sess:
-	        tmp_z = tf.Session().run(z)
-	        sess.close()
+	with tf.Session() as sess:
+	    tmp_z = tf.Session().run(z)
+	    sess.close()
         #sess.run(self.assign(z))
         return self.sess.run(self.genImage, feed_dic={self.z:tmp_z})
         #return tf.nn.tanh(h6)
