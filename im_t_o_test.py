@@ -85,7 +85,8 @@ class Generator(object):
 
         self.dataset_name = dataset_name
         #self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')#J.L.
-        self.z = tf.get_variable('kz', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
+        #self.z = tf.get_variable('kz', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
+        self.z = None
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         #with tf.variable_scope(tf.get_variable_scope()) as scope:
         with tf.variable_scope("generator") as scope:
