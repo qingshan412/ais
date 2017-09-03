@@ -154,4 +154,5 @@ class Generator(object):
 
 generator = Generator(checkpoint_dir=checkpoint_dir, dataset_name='default')
 print('load success!')
+print('try...')
 exit(0)
