@@ -96,7 +96,7 @@ class Model(object):
     def ais(self, x, schedule):
         w = 0.0
         #self.zv = np.random.normal(0.0, 1.0, [x.shape[0] * self.num_samples, self.generator.input_dim])
-        
+        init_op = tf.global_variables_initializer()
         for (t0, t1) in zip(schedule[:-1], schedule[1:]):
             new_u = self.log_likelihood(x, t1)
             prev_u = self.log_likelihood(x, t0)
