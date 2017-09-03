@@ -154,5 +154,8 @@ class Generator(object):
 
 generator = Generator(checkpoint_dir=checkpoint_dir, dataset_name='default')
 print('load success!')
+prior = NormalPrior()
+kernel = ParsenDensityEstimator()
+model = ais.Model(generator, prior, kernel, 0.25, 10000)
 print('try...')
 exit(0)
