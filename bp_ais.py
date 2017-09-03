@@ -14,7 +14,7 @@ def get_schedule(num, rad=4):
 
 class Model(object):
     def __init__(self, generator, prior, kernel, sigma, num_samples,
-                 batch_size=64, stepsize=0.01, n_steps=10,
+                 stepsize=0.01, n_steps=10,
                  target_acceptance_rate=.65, avg_acceptance_slowness=0.9,
                  stepsize_min=0.0001, stepsize_max=0.5, stepsize_dec=0.98, stepsize_inc=1.02):
         """
@@ -40,13 +40,10 @@ class Model(object):
         self.prior = prior
         self.kernel = kernel
         self.x = tf.placeholder(tf.float32, [None, self.generator.output_dim], name='x')
-        #self.z = tf.placeholder(tf.float32, [None, self.generator.input_dim], name='z')
-        self.batch_size = batch_size #tf.shape(self.x)[0]
+        self.z = tf.placeholder(tf.float32, [None, self.generator.input_dim], name='z')
+        self.zv = None
+        self.batch_size = tf.shape(self.x)[0]
         self.num_samples = num_samples
-        self.zv = tf.get_variable('zv', 
-            [self.batch_size*self.num_samples, self.generator.input_dim], 
-            tf.float32, 
-            tf.random_normal_initializer(0.0, 1.0))
         self.sigma = sigma
         self.t = tf.placeholder(tf.float32, [], name='t')
         self.lld = tf.reshape(-self.energy_fn(self.zv), [num_samples, self.batch_size])
@@ -55,14 +52,14 @@ class Model(object):
         self.avg_acceptance_rate = tf.Variable(target_acceptance_rate)
 
         self.accept, self.final_pos, self.final_vel = hmc_move(
-            self.zv,#self.z,
+            self.z,
             self.energy_fn,
             stepsize,
             n_steps
         )
 
         self.new_z, self.updates = hmc_updates(
-            self.zv,#self.z,
+            self.z,
             self.stepsize,
             avg_acceptance_rate=self.avg_acceptance_rate,
             final_pos=self.final_pos,
@@ -83,7 +80,7 @@ class Model(object):
         return accept
 
     def log_likelihood(self, x, t):
-        return self.sess.run(self.lld, feed_dict={self.t: t, self.x: x})#, self.z: self.zv})
+        return self.sess.run(self.lld, feed_dict={self.t: t, self.x: x, self.z: self.zv})
 
     def energy_fn(self, z):
         mu = self.generator(z)
@@ -93,13 +90,12 @@ class Model(object):
 
     def ais(self, x, schedule):
         w = 0.0
-        #self.zv = np.random.normal(0.0, 1.0, [x.shape[0] * self.num_samples, self.generator.input_dim])
-        tf.global_variables_initializer().run()
+        self.zv = np.random.normal(0.0, 1.0, [x.shape[0] * self.num_samples, self.generator.input_dim])
         for (t0, t1) in zip(schedule[:-1], schedule[1:]):
             new_u = self.log_likelihood(x, t1)
             prev_u = self.log_likelihood(x, t0)
             w += new_u - prev_u
-            print(self.sess.run(self.kernel.logpdf(self.x, tf.reshape(self.generator(self.zv), [self.num_samples, self.batch_size, self.generator.output_dim]), self.sigma), feed_dict={self.x: x}))#, self.z: self.zv}))
+            print(self.sess.run(self.kernel.logpdf(self.x, tf.reshape(self.generator(self.zv), [self.num_samples, self.batch_size, self.generator.output_dim]), self.sigma), feed_dict={self.x: x, self.z: self.zv}))
             accept = self.step(x, t1)
             print('accept:')
             print(np.mean(accept))

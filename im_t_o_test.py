@@ -84,19 +84,11 @@ class Generator(object):
         self.g_bn5 = batch_norm(name='g_bn5')
 
         self.dataset_name = dataset_name
-        #self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')#J.L.
+        self.z = tf.placeholder(tf.float32, [None, self.z_dim], name='z')#J.L.
         #self.z = tf.get_variable('kz', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
         #self.z = None
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         #with tf.variable_scope(tf.get_variable_scope()) as scope:
-        
-
-    def __call__(self, z):
-        #tmp_z = self.sess.run(z, feed_dict={self.z:np.ones((1, self.z_dim))})
-        #self.z = tf.get_variable('z', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
-        #self.z.assign(z)
-        #kz = self.sess.run(z)
-        #self.z = z
         with tf.variable_scope("generator") as scope:
             #scope.reuse_variables()
             s_h, s_w = self.output_height, self.output_width
@@ -159,11 +151,19 @@ class Generator(object):
             print(" [*] Failed to find a checkpoint")
             exit(0)#return False
         #self.sess.close()
-        #self.genImage = tf.nn.tanh(h6)
+        self.genImage = tf.nn.tanh(h6)
 	    #    sess.close()
         #sess.run(self.assign(z))
         #return self.sess.run(self.genImage)
-        return self.sess.run(tf.nn.tanh(h6))#, feed_dict={self.z: kz})
+
+    def __call__(self, z):
+        #tmp_z = self.sess.run(z, feed_dict={self.z:np.ones((1, self.z_dim))})
+        #self.z = tf.get_variable('z', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
+        #self.z.assign(z)
+        #kz = self.sess.run(z)
+        #self.z = z
+        
+        return self.sess.run(self.genImage, feed_dict={self.z: z})
         #return tf.nn.tanh(h6)
 
 #with tf.Session() as sess:
