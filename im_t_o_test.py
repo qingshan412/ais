@@ -161,7 +161,7 @@ class Generator(object):
         #return tf.nn.tanh(h6)
 
 with tf.Session() as sess:
-    generator = Generator(sess=sess, checkpoint_dir=checkpoint_dir, dataset_name='default')
+    generator = Generator(checkpoint_dir=checkpoint_dir, dataset_name='default')
 print('load success!')
 prior = NormalPrior()
 kernel = ParsenDensityEstimator()
