@@ -157,7 +157,7 @@ class Generator(object):
         tmp_z = np.array(z)
 	    #    sess.close()
         #sess.run(self.assign(z))
-        return self.sess.run(self.genImage, feed_dict={self.z:z})
+        return self.sess.run(self.genImage, feed_dict={self.z:tmp_z})
         #return tf.nn.tanh(h6)
 
 with tf.Session() as sess:
