@@ -95,8 +95,8 @@ class Generator(object):
         #tmp_z = self.sess.run(z, feed_dict={self.z:np.ones((1, self.z_dim))})
         #self.z = tf.get_variable('z', [self.batch_size*self.sample_num, self.z_dim], tf.float32)
         #self.z.assign(z)
-        kz = self.sess.run(z)
-        self.z = z
+        #kz = self.sess.run(z)
+        #self.z = z
         with tf.variable_scope("generator") as scope:
             #scope.reuse_variables()
             s_h, s_w = self.output_height, self.output_width
@@ -109,7 +109,7 @@ class Generator(object):
             print(s_h8)
 
             # project `z` and reshape #J.L.
-            self.z_, self.h0_w, self.h0_b = linear(self.z, self.gf_dim*4*s_h8*s_w8, 'g_h0_lin', with_w=True)
+            self.z_, self.h0_w, self.h0_b = linear(z, self.gf_dim*4*s_h8*s_w8, 'g_h0_lin', with_w=True)
             self.h0 = tf.nn.relu(self.g_bn0(self.z_))
             print('h:')
 
@@ -168,7 +168,7 @@ class Generator(object):
 
 #with tf.Session() as sess:
 generator = Generator(sample_num=NumSample, checkpoint_dir=checkpoint_dir)
-print('load success!')
+print('init success!')
 prior = NormalPrior()
 kernel = ParsenDensityEstimator()
 model = ais.Model(generator, prior, kernel, 0.25, 10000)
