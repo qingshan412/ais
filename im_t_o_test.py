@@ -47,9 +47,10 @@ class Generator(object):
          y_dim=None, z_dim=100, gf_dim=128, df_dim=128,
          gfc_dim=1024, dfc_dim=1024, c_dim=3,checkpoint_dir=None, dataset_name='default'):
         
-        self.output_dim = int(output_height)*int(output_width),
-        print(self.output_dim)
-        exit(0)
+        self.output_dim = output_height*output_width
+        self.input_dim = z_dim
+        #print(self.output_dim)
+        #exit(0)
         #self.sess = sess
         self.sess = tf.Session() 
         #self.input_height = input_height
@@ -84,7 +85,7 @@ class Generator(object):
 
         self.dataset_name = dataset_name
         self.z = tf.placeholder(tf.float32, [1, self.z_dim], name='z')#J.L.
-        
+        #self.z = tf.get_variable('z', [None, self.z_dim], tf.float32)
         #could_load, checkpoint_counter = self.load(self.checkpoint_dir)
         #with tf.variable_scope(tf.get_variable_scope()) as scope:
         with tf.variable_scope("generator") as scope:
@@ -148,11 +149,15 @@ class Generator(object):
         else:
             print(" [*] Failed to find a checkpoint")
             exit(0)#return False
-        
+        self.sess.close()
         self.genImage = tf.nn.tanh(h6)
 
     def __call__(self, z):
-        return(self.sess.run(self.genImage, feed_dict={self.z: z}))
+	with tf.Session() as sess:
+	    tmp_z = tf.Session().run(z)
+	    sess.close()
+        #sess.run(self.assign(z))
+        return self.sess.run(self.genImage, feed_dic={self.z:tmp_z})
         #return tf.nn.tanh(h6)
 
 
