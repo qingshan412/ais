@@ -56,7 +56,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
 PicPath = '../../DataImageNet/Image32'
 ### train32
 AllPx = load_databatch(data_folder = PicPath, idx = 1)
-for i in xrange(9):
+for i in range(9):
     print(i)
     tmpPx = load_databatch(data_folder = PicPath, idx = i+2)
     AllPx = np.vstack((AllPx, tmpPx))
