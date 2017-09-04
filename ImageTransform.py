@@ -1,3 +1,4 @@
+import os
 import pickle
 import numpy as np
 
@@ -10,12 +11,13 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
 
     if train != 'train':
         data_file = os.path.join(data_folder, train + str(img_size), 'val_data')
+        d = unpickle(data_file)
     else:
         data_file = os.path.join(data_folder, train + str(img_size),'train_data_batch_')
+        d = unpickle(data_file + str(idx))
     print(data_file)
     #
 
-    d = unpickle(data_file + str(idx))
     x = d['data']
     #y = d['labels']
     #mean_image = d['mean']
@@ -51,7 +53,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
         #Y_train=Y_train.astype('int32'),
         #mean=mean_image)
 
-PicPath = '../DataImageNet/Image32'
+PicPath = '../../DataImageNet/Image32'
 ### train32
 #AllPx = load_databatch(data_folder = PicPath, idx = 1)
 #for i in xrange(9):
