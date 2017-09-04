@@ -62,8 +62,8 @@ for i in range(9):
     AllPx = np.vstack((AllPx, tmpPx))
     AllLa = np.vstack((AllLa, tmpLa))
 
-np.save('AllPx_train32_3.npy', AllPx)
-np.save('AllLa_train32_3.npy', AllLa)
+np.save(os.path.join(PicPath + 'AllPx_train32p_3.npy'), AllPx)
+np.save(os.path.join(PicPath + 'AllLa_train32l_3.npy'), AllLa)
 
 ### valid32
 #AllPx = load_databatch(data_folder = PicPath, idx = 0, train = 'valid')
