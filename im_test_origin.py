@@ -139,24 +139,16 @@ kernel = ParsenDensityEstimator()
 model = ais.Model(generator, prior, kernel, 0.25, 10000)
 
 
-PicPath = ''
-PicFiles = [ f for f in listdir(PicPath) if path.isfile(path.join(PicPath,f)) and f.strip().split('.')[-1]=='png']#
-countflag = 0
-for Pic in PicFiles:
-    tmp = Image.open(path.join(PicPath, Pic))
-    print(countflag)
-    line3 = np.array(tmp)
-    line3 = line3.flatten()
-    if countflag == 0:
-        AllPx = line6
-    else:
-        AllPx = np.vstack((AllPx, line6))
+PicPath = '../../DataImageNet/Image32/AllPx_valid32.npy'
+#PicPath = '../../DataImageNet/Image32/AllPx_train32.npy'
+AllPx = np.load(PicPath)
 
-    countflag = countflag + 1
-    if countflag >= NumBatch:
-        break
+xx = AllPx[:64, :]
+# Nxx = int(AllPx.shape[0]/64)
+# for i in xrange(Nxx-1):
+#   xx = AllPx[i*64:(i+1)*64, :]
+#   blahblah...
 
-xx = AllPx
 # Get 100 f(x) values
 #p = norm()
 #x = np.linspace(norm.ppf(0.01, loc=3, scale=2), norm.ppf(0.99, loc=3, scale=2), 100)
@@ -171,6 +163,3 @@ print(p2)
 lld = model.ais(xx, schedule)
 print('lld_mean:')
 print(np.mean(lld))
-plt.plot(x, p1)
-plt.plot(x, p2)
-plt.show()

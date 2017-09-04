@@ -152,26 +152,15 @@ class Generator(object):
 #kernel = ParsenDensityEstimator()
 #model = ais.Model(generator, prior, kernel, 0.25, 10000)
 
-PicPath = '../../DataImageNet/Image32/AllPx_valid.npy'
+PicPath = '../../DataImageNet/Image32/AllPx_valid32.npy'
+#PicPath = '../../DataImageNet/Image32/AllPx_train32.npy'
 AllPx = np.load(PicPath)
-# train32
-# for i in xrange(9):
-#    tmpPx = load_databatch(data_folder = PicPath, idx = i+2)
-#    AllPx = np.vstack((AllPx, tmpPx))
-# valid32
-# AllPx = load_databatch(data_folder = PicPath, train = 'valid')
 
 xx = AllPx[:64, :]
 # Nxx = int(AllPx.shape[0]/64)
 # for i in xrange(Nxx-1):
 #   xx = AllPx[i*64:(i+1)*64, :]
 #   blahblah...
-
-# Get 100 f(x) values
-#p = norm()
-#x = np.linspace(norm.ppf(0.01, loc=3, scale=2), norm.ppf(0.99, loc=3, scale=2), 100)
-#p1 = norm.pdf(x, loc=3, scale=2)
-#xx = np.reshape(x, (100, 1))
 
 schedule = ais.get_schedule(100, rad=4)
 print(schedule)
