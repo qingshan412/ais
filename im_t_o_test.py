@@ -144,7 +144,7 @@ class Generator(object):
         if ckpt and ckpt.model_checkpoint_path:
             ckpt_name = os.path.basename(ckpt.model_checkpoint_path)
             print(ckpt_name)
-            self.saver.restore(self.sess, os.path.join(self.checkpoint_dir, ckpt_name, '.data-00000-of-00001'))
+            self.saver.restore(self.sess, os.path.join(self.checkpoint_dir, ckpt_name + '.data-00000-of-00001'))
             print(" [*] Success to read {}".format(ckpt_name))
             #return True
         else:
