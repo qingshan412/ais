@@ -152,8 +152,8 @@ class Generator(object):
 #kernel = ParsenDensityEstimator()
 #model = ais.Model(generator, prior, kernel, 0.25, 10000)
 
-PicPath = '../../DataImageNet/Image32/valid32/AllPx_valid.npy'
-AllPx = np.load(data_folder = PicPath)
+PicPath = '../../DataImageNet/Image32/AllPx_valid.npy'
+AllPx = np.load(PicPath)
 # train32
 # for i in xrange(9):
 #    tmpPx = load_databatch(data_folder = PicPath, idx = i+2)
