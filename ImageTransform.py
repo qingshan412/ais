@@ -19,7 +19,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
     #
 
     x = d['data']
-    #y = d['labels']
+    y = d['labels']
     #mean_image = d['mean']
 
     x = x/np.float32(256)#255
@@ -44,24 +44,26 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
     #X_train = np.concatenate((X_train, X_train_flip), axis=0)
     #Y_train = np.concatenate((Y_train, Y_train_flip), axis=0)
 
-    Px = np.sum(x,axis=1)
-    line1 = Px.reshape((data_size,-1))
-    line2 = line1 + np.random.random(line1.shape)/256.0 #add noise
+    #Px = np.sum(x,axis=1)
+    #line1 = Px.reshape((data_size,-1))
+    #line2 = line1 + np.random.random(line1.shape)/256.0 #add noise
 
-    return line2#dict(
-        #X_train=lasagne.utils.floatX(X_train),
-        #Y_train=Y_train.astype('int32'),
-        #mean=mean_image)
+    return x, y#dict(
+        #X_train=x#lasagne.utils.floatX(X_train),
+        #Y_train=y)#Y_train.astype('int32'),
+        #mean=mean_image)#x#line2#
 
 PicPath = '../../DataImageNet/Image32'
 ### train32
-AllPx = load_databatch(data_folder = PicPath, idx = 1)
+AllPx, AllLa = load_databatch(data_folder = PicPath, idx = 1)
 for i in range(9):
     print(i)
-    tmpPx = load_databatch(data_folder = PicPath, idx = i+2)
+    tmpPx, tmpLa = load_databatch(data_folder = PicPath, idx = i+2)
     AllPx = np.vstack((AllPx, tmpPx))
+    AllLa = np.vstack((AllLa, tmpLa))
 
-np.save('AllPx_train32.npy', AllPx)
+np.save('AllPx_train32_3.npy', AllPx)
+np.save('AllLa_train32_3.npy', AllLa)
 
 ### valid32
 #AllPx = load_databatch(data_folder = PicPath, idx = 0, train = 'valid')
