@@ -10,6 +10,7 @@ from scipy.stats import norm
 #from ops_dcgan import *
 from ops import *
 import math
+import pickle
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -203,7 +204,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
         #Y_train=Y_train.astype('int32'),
         #mean=mean_image)
 
-PicPath = '../DataImageNet/Image32/train32'
+PicPath = '../../DataImageNet/Image32/train32'
 AllPx = load_databatch(data_folder = PicPath, idx = 1)
 # train32
 # for i in xrange(9):
