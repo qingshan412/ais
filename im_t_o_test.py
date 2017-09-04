@@ -67,9 +67,11 @@ class Generator(object):
             print(" [*] Failed to find a checkpoint")
             exit(0)#return False
         #self.sess.close()
+        self.dcgan.ais = dcgan.ais
+        self.dcgan.z = dcgan.z
 
     def __call__(self, z):
-        return self.sess.run(dcgan.ais,feed_dict={dcgan.z: z})
+        return self.sess.run(self.dcgan.ais,feed_dict={self.dcgan.z: z})
         #return tf.nn.tanh(h6)
 
 #with tf.Session() as sess:
