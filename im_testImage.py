@@ -164,6 +164,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
         data_file = os.path.join(data_folder, 'val_data')
     else:
         data_file = os.path.join(data_folder, 'train_data_batch_')
+    print(data_file)
     #
 
     d = unpickle(data_file + str(idx))
