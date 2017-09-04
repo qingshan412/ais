@@ -147,32 +147,76 @@ class Generator(object):
         return(self.sess.run(self.genImage, feed_dict={self.z: z}))
         #return tf.nn.tanh(h6)
 
-generator = Generator(checkpoint_dir=checkpoint_dir, dataset_name='default')
-prior = NormalPrior()
-kernel = ParsenDensityEstimator()
-model = ais.Model(generator, prior, kernel, 0.25, 10000)
+#generator = Generator(checkpoint_dir=checkpoint_dir, dataset_name='default')
+#prior = NormalPrior()
+#kernel = ParsenDensityEstimator()
+#model = ais.Model(generator, prior, kernel, 0.25, 10000)
 
 
+def unpickle(file):
+    with open(file, 'rb') as fo:
+        dict = pickle.load(fo)
+    return dict
 
+def load_databatch(data_folder, idx, img_size=32, train='train'):
+
+    if train != 'train':
+        data_file = os.path.join(data_folder, 'val_data')
+    else:
+        data_file = os.path.join(data_folder, 'train_data_batch_')
+    #
+
+    d = unpickle(data_file + str(idx))
+    x = d['data']
+    #y = d['labels']
+    #mean_image = d['mean']
+
+    x = x/np.float32(256)#255
+    #mean_image = mean_image/np.float32(255)
+
+    # Labels are indexed from 1, shift it so that indexes start at 0
+    #y = [i-1 for i in y]
+    data_size = x.shape[0]
+
+    #x -= mean_image
+
+    img_size2 = img_size * img_size
+
+    x = np.dstack((x[:, :img_size2], x[:, img_size2:2*img_size2], x[:, 2*img_size2:]))
+    x = x.reshape((x.shape[0], img_size, img_size, 3)).transpose(0, 3, 1, 2)
+
+    # create mirrored images
+    #X_train = x[0:data_size, :, :, :]
+    #Y_train = y[0:data_size]
+    #X_train_flip = X_train[:, :, :, ::-1]
+    #Y_train_flip = Y_train
+    #X_train = np.concatenate((X_train, X_train_flip), axis=0)
+    #Y_train = np.concatenate((Y_train, Y_train_flip), axis=0)
+
+    Px = np.sum(x,axis=1)
+    line1 = Px.reshape((data_size,-1))
+    line2 = line1 + np.random.random(line1.shape)/256.0 #add noise
+
+    return line2#dict(
+        #X_train=lasagne.utils.floatX(X_train),
+        #Y_train=Y_train.astype('int32'),
+        #mean=mean_image)
 
 PicPath = ''
-PicFiles = [ f for f in listdir(PicPath) if path.isfile(path.join(PicPath,f)) and f.strip().split('.')[-1]=='jpg']#
-countflag = 0
-for Pic in PicFiles:
-    tmp = Image.open(path.join(PicPath, Pic))
-    print(countflag)
-    line3 = np.array(tmp)
-    line3 = line3.flatten()
-    if countflag == 0:
-        AllPx = line6
-    else:
-        AllPx = np.vstack((AllPx, line6))
+AllPx = load_databatch(data_folder = PicPath, idx = 1)
+# train32
+# for i in xrange(9):
+#    tmpPx = load_databatch(data_folder = PicPath, idx = i+2)
+#    AllPx = np.vstack((AllPx, tmpPx))
+# valid32
+# AllPx = load_databatch(data_folder = PicPath, train = 'valid')
 
-    countflag = countflag + 1
-    if countflag >= NumBatch:
-        break
+xx = AllPx[:64, :]
+# Nxx = int(AllPx.shape[0]/64)
+# for i in xrange(Nxx-1):
+#   xx = AllPx[i*64:(i+1)*64, :]
+#   blahblah...
 
-xx = AllPx
 # Get 100 f(x) values
 #p = norm()
 #x = np.linspace(norm.ppf(0.01, loc=3, scale=2), norm.ppf(0.99, loc=3, scale=2), 100)
@@ -181,12 +225,12 @@ xx = AllPx
 
 schedule = ais.get_schedule(100, rad=4)
 print(schedule)
-p2 = np.exp(model.ais(xx, schedule))
-print(p2)
+#p2 = np.exp(model.ais(xx, schedule))
+#print(p2)
 
-lld = model.ais(xx, schedule)
-print('lld_mean:')
-print(np.mean(lld))
-plt.plot(x, p1)
-plt.plot(x, p2)
-plt.show()
+#lld = model.ais(xx, schedule)
+#print('lld_mean:')
+#print(np.mean(lld))
+#plt.plot(x, p1)
+#plt.plot(x, p2)
+#plt.show()
