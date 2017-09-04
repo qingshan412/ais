@@ -49,6 +49,7 @@ class Generator(object):
         
         self.output_dim = 3*output_height*output_width
         self.input_dim = z_dim
+        self.checkpoint_dir=checkpoint_dir
 
         print(" [*] Reading checkpoints...")
         #checkpoint_dir = os.path.join(self.checkpoint_dir, self.model_dir)
