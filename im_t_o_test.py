@@ -179,7 +179,7 @@ class Generator(object):
 #with tf.Session() as sess:
 generator = Generator(sample_num=NumSample, checkpoint_dir=checkpoint_dir)
 print('init success!')
-z = np.random.normal(0.0, 1.0, [64 * NumSample, self.generator.input_dim])
+z = np.random.normal(0.0, 1.0, [64 * NumSample, 100])
 ct = generator(z)
 print(ct)
 #prior = NormalPrior()
