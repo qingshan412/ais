@@ -131,20 +131,17 @@ class Generator(object):
             h6, self.h6_w, self.h6_b = deconv2d_d1(h5, [self.batch_size, s_h, s_w, self.c_dim], name='g_h6', with_w=True)
             print(h6.get_shape().as_list())
 
-        self.saver = tf.train.Saver()
+        #self.saver = tf.train.Saver()
 
-        #def load(self):
-        #v1 = tf.get_variable("v") 
-        #tf.global_variables_initializer()#.run()
-#        print(tf.get_variable("generator/g_bn0/beta", [8192]).name)
-        #generator/g_bn0/beta"
         print(" [*] Reading checkpoints...")
         #checkpoint_dir = os.path.join(self.checkpoint_dir, self.model_dir)
         ckpt = tf.train.get_checkpoint_state(self.checkpoint_dir)
         if ckpt and ckpt.model_checkpoint_path:
             ckpt_name = os.path.basename(ckpt.model_checkpoint_path)
             print(ckpt_name)
-            self.saver.restore(self.sess, os.path.join(self.checkpoint_dir, ckpt_name + '.data-00000-of-00001'))
+            new_saver = tf.train.import_meta_graph(os.path.join(self.checkpoint_dir, ckpt_name + '.meta'))
+            new_saver.restore(self.sess, os.path.join(self.checkpoint_dir, ckpt_name))
+            #self.saver.restore(self.sess, os.path.join(self.checkpoint_dir, ckpt_name + '.data-00000-of-00001'))
             print(" [*] Success to read {}".format(ckpt_name))
             #return True
         else:
