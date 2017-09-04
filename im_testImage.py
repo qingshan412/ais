@@ -202,7 +202,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
         #Y_train=Y_train.astype('int32'),
         #mean=mean_image)
 
-PicPath = ''
+PicPath = '../DataImageNet/Image32/train32'
 AllPx = load_databatch(data_folder = PicPath, idx = 1)
 # train32
 # for i in xrange(9):
