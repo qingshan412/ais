@@ -49,6 +49,7 @@ class Generator(object):
         
         self.output_dim = 3*output_height*output_width
         self.input_dim = z_dim
+        self.sess = tf.Session()
         self.checkpoint_dir=checkpoint_dir
 
         print(" [*] Reading checkpoints...")
