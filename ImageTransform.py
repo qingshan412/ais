@@ -65,8 +65,8 @@ PicPath = '../../DataImageNet/Image32'
 #    print(tmpLa.shape)
 #    AllLa = np.vstack((AllLa, tmpLa))
 #
-#np.save(os.path.join(PicPath + 'AllPx_train32p_3.npy'), AllPx)
-#np.save(os.path.join(PicPath + 'AllLa_train32l_3.npy'), AllLa)
+#np.save(os.path.join(PicPath , 'AllPx_train32p_3.npy'), AllPx)
+#np.save(os.path.join(PicPath , 'AllLa_train32l_3.npy'), AllLa)
 
 ### valid32
 AllPx, _ = load_databatch(data_folder = PicPath, idx = 0, train = 'valid')
