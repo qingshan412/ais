@@ -56,18 +56,18 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
 
 PicPath = '../../DataImageNet/Image32'
 ### train32
-AllPx, AllLa = load_databatch(data_folder = PicPath, idx = 1)
-for i in range(9):
-    print(i)
-    tmpPx, tmpLa = load_databatch(data_folder = PicPath, idx = i+2)
-    AllPx = np.vstack((AllPx, tmpPx))
-    print(AllLa.size)
-    print(tmpLa.size)
-    AllLa = np.vstack((AllLa, tmpLa))
-
-np.save(os.path.join(PicPath + 'AllPx_train32p_3.npy'), AllPx)
-np.save(os.path.join(PicPath + 'AllLa_train32l_3.npy'), AllLa)
+#AllPx, AllLa = load_databatch(data_folder = PicPath, idx = 1)
+#for i in range(9):
+#    print(i)
+#    tmpPx, tmpLa = load_databatch(data_folder = PicPath, idx = i+2)
+#    AllPx = np.vstack((AllPx, tmpPx))
+#    print(AllLa.shape)
+#    print(tmpLa.shape)
+#    AllLa = np.vstack((AllLa, tmpLa))
+#
+#np.save(os.path.join(PicPath + 'AllPx_train32p_3.npy'), AllPx)
+#np.save(os.path.join(PicPath + 'AllLa_train32l_3.npy'), AllLa)
 
 ### valid32
-#AllPx = load_databatch(data_folder = PicPath, idx = 0, train = 'valid')
-#np.save(os.path.join(PicPath, 'AllPx_valid32.npy'), AllPx)
+AllPx, _ = load_databatch(data_folder = PicPath, idx = 0, train = 'valid')
+np.save(os.path.join(PicPath, 'AllPx_valid32p_3.npy'), AllPx)
