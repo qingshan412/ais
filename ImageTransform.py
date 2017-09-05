@@ -26,7 +26,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
     #mean_image = mean_image/np.float32(255)
 
     # Labels are indexed from 1, shift it so that indexes start at 0
-    #y = [i-1 for i in y]
+    y = [i-1 for i in y]
     data_size = x.shape[0]
 
     #x -= mean_image
@@ -60,6 +60,8 @@ for i in range(9):
     print(i)
     tmpPx, tmpLa = load_databatch(data_folder = PicPath, idx = i+2)
     AllPx = np.vstack((AllPx, tmpPx))
+    print(AllLa.size)
+    print(tmpLa.size)
     AllLa = np.vstack((AllLa, tmpLa))
 
 np.save(os.path.join(PicPath + 'AllPx_train32p_3.npy'), AllPx)
