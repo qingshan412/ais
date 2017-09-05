@@ -47,7 +47,7 @@ def load_databatch(data_folder, idx, img_size=32, train='train'):
     #Px = np.sum(x,axis=1)
     #line1 = Px.reshape((data_size,-1))
     #line2 = line1 + np.random.random(line1.shape)/256.0 #add noise
-
+    y = np.array(y)
     return x, y#dict(
         #X_train=x#lasagne.utils.floatX(X_train),
         #Y_train=y)#Y_train.astype('int32'),
