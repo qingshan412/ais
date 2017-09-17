@@ -39,7 +39,7 @@ checkpoint_dir = args.CheckP
 #model = ais.Model(generator, prior, kernel, 0.25, 10000)
 
 class Generator(object):
-    def __init__(self, #sess, #input_height=32, input_width=32, crop=True,
+    def __init__(self, sess, #input_height=32, input_width=32, crop=True,
          batch_size=64, sample_num = 64, output_height=32, output_width=32,
          y_dim=None, z_dim=100, gf_dim=128, df_dim=128,
          gfc_dim=1024, dfc_dim=1024, c_dim=3,checkpoint_dir=None, dataset_name='default'):
@@ -58,7 +58,7 @@ class Generator(object):
         return self.sess.run(self.a23th, feed_dict={self.v3h:z})
 
 #with tf.Session() as sess:
-generator = Generator(tf.Session(), sample_num=NumSample, checkpoint_dir=checkpoint_dir)
+generator = Generator(sess=tf.Session(), sample_num=NumSample, checkpoint_dir=checkpoint_dir)
 print('init success!')
 z = np.random.normal(0.0, 1.0, [64 * NumSample, 100])
 ct = generator(z)
