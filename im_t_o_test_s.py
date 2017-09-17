@@ -63,8 +63,8 @@ class Generator(object):
 
 #with tf.Session() as sess:
 generator = Generator(sess=tf.Session(), sample_num=NumSample, checkpoint_dir=checkpoint_dir)
-print('init success!')
-z = np.random.normal(0.0, 1.0, [64 * NumSample, 100])
+print('init success!')#64 * NumSample
+z = np.random.normal(0.0, 1.0, [64, 100])
 ct = generator(z)
 print(ct)
 #prior = NormalPrior()
