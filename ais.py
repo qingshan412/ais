@@ -93,7 +93,9 @@ class Model(object):
         print(tf.shape(z))
         mu = self.generator(z)
         mu = tf.reshape(mu, [self.num_samples, self.batch_size, self.generator.output_dim])
+        print("OK here")
         e = self.prior.logpdf(z) + self.t * tf.reshape(self.kernel.logpdf(self.x, mu, self.sigma), [self.num_samples * self.batch_size, -1])
+        print("OK here1")
         return -e
 
     def ais(self, x, schedule):
