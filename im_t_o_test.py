@@ -64,6 +64,6 @@ generator = Generator(sess=tf.Session(), sample_num=NumSample, checkpoint_dir=ch
 #print(ct)
 prior = NormalPrior()
 kernel = ParsenDensityEstimator()
-model = ais.Model(generator, prior, kernel, 0.25, 10000)
+model = ais.Model(generator=generator, prior=prior, kernel=kernel, sigma=0.25, num_samples=8)#10000
 print('succeed...')
 exit(0)
