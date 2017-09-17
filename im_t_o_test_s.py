@@ -55,6 +55,7 @@ class Generator(object):
         print("zr restored.")
         print(tf.shape(self.v3h))
         self.a23th = tf.get_collection("gen_op")[0]
+        print("generator restored.")
 
     def __call__(self, z):
         return self.sess.run(self.a23th, feed_dict={self.v3h:z})
