@@ -13,8 +13,8 @@ def get_schedule(num, rad=4):
 
 
 class Model(object):
-    def __init__(self, generator, prior, kernel, sigma, num_samples,
-                 batch_size=64, stepsize=0.01, n_steps=10,
+    def __init__(self, generator, prior, kernel, sigma, num_samples=8,
+                 batch_size=8, stepsize=0.01, n_steps=10,
                  target_acceptance_rate=.65, avg_acceptance_slowness=0.9,
                  stepsize_min=0.0001, stepsize_max=0.5, stepsize_dec=0.98, stepsize_inc=1.02):
         """
