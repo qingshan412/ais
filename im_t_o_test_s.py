@@ -10,6 +10,7 @@ from scipy.stats import norm
 #from ops_dcgan import *
 from ops import *
 import math
+import os
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -18,7 +19,7 @@ parser.add_argument("-b","--SampleNum", type=int,
                     default = '64')
 parser.add_argument("-c","--CheckP", type=str,
                     help="Checkpoint Dir",
-                    default = None)
+                    default = "../../DCGAN/original_storeMore/checkpoint/original24")
 args = parser.parse_args()
 
 NumSample = args.SampleNum
@@ -46,8 +47,8 @@ class Generator(object):
         self.input_dim = z_dim
         self.output_dim = 3*output_height*output_width
         self.sess = sess
-        new_saver = tf.train.import_meta_graph('my-save-dir/my-model-10000.meta')
-        new_saver.restore(sess, 'my-save-dir/my-model-10000')
+        new_saver = tf.train.import_meta_graph(os.path.join(checkpoint_dir,'my-model-10000.meta'))
+        new_saver.restore(sess, os.path.join(checkpoint_dir,'my-model-10000'))
         #saver.restore(sess, "/tmp/model.ckpt")
         print("Model restored.")
         self.v3h = tf.get_collection("v3")[0]
@@ -57,7 +58,7 @@ class Generator(object):
         return self.sess.run(self.a23th, feed_dict={self.v3h:z})
 
 #with tf.Session() as sess:
-generator = Generator(tf.Session(), sample_num=NumSample)
+generator = Generator(tf.Session(), sample_num=NumSample, checkpoint_dir=checkpoint_dir)
 print('init success!')
 z = np.random.normal(0.0, 1.0, [64 * NumSample, 100])
 ct = generator(z)
