@@ -53,7 +53,7 @@ class Generator(object):
         print("Model restored.")
         self.v3h = tf.get_collection("zr")[0]
         print("zr restored.")
-        print(tf.shape(self.v3h).as_list())
+        print(tf.shape(self.v3h))
         self.a23th = tf.get_collection("gen_op")[0]
 
     def __call__(self, z):
