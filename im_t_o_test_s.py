@@ -58,6 +58,7 @@ class Generator(object):
         print("generator restored.")
 
     def __call__(self, z):
+        print("get called!")
         return self.sess.run(self.a23th, feed_dict={self.v3h:z})
 
 #with tf.Session() as sess:
