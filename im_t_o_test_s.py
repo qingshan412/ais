@@ -52,7 +52,8 @@ class Generator(object):
         #saver.restore(sess, "/tmp/model.ckpt")
         print("Model restored.")
         self.v3h = tf.get_collection("zr")[0]
-        print(self.v3h.shape().as_list())
+        print("zr restored.")
+        print(tf.shape(self.v3h).as_list())
         self.a23th = tf.get_collection("gen_op")[0]
 
     def __call__(self, z):
