@@ -51,7 +51,8 @@ class Model(object):
         #self.sess.run(init_op)
         self.sigma = sigma
         self.t = tf.placeholder(tf.float32, [], name='t')
-        print("OK here")
+        print("zv.shape:")
+        print(self.zv.shape)
         self.lld = tf.reshape(-self.energy_fn(self.zv), [num_samples, self.batch_size, -1])
 
         self.stepsize = tf.Variable(stepsize)
