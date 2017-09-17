@@ -51,8 +51,8 @@ class Generator(object):
         new_saver.restore(sess, os.path.join(checkpoint_dir,'my-model-10000'))
         #saver.restore(sess, "/tmp/model.ckpt")
         print("Model restored.")
-        self.v3h = tf.get_collection("v3")[0]
-        self.a23th = tf.get_collection("tfadd")[0]
+        self.v3h = tf.get_collection("zr")[0]
+        self.a23th = tf.get_collection("gen_op")[0]
 
     def __call__(self, z):
         return self.sess.run(self.a23th, feed_dict={self.v3h:z})
